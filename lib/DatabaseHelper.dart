@@ -29,7 +29,7 @@ class DatabaseHelper {
     const textType = 'TEXT NOT NULL';
     const integerType = 'INTEGER NOT NULL';
 
-    await db.cxecute('''
+    await db.execute('''
     CREATE TABLE dogs (
       id $idType,
       name $textType,
