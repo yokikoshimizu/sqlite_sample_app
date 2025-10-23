@@ -38,5 +38,11 @@ class DatabaseHelper {
     ''');
   }
 
-  
+  Future<int> create(Dog dog) async {
+    final db = await instance.database;
+    // 'dogs'テーブルにMap形式で挿入
+    final id = await db.insert('dogs', dog.toMap());
+    return id; // 挿入された行のIDを返す
+  }
+
 }
