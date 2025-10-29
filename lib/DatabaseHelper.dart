@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'dog_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
@@ -45,4 +46,32 @@ class DatabaseHelper {
     return id; // 挿入された行のIDを返す
   }
 
+  //c
+  Future<List<Dog>> readAllDogs() async {
+    final db = await instance.database;
+    final result = await db.query('dogs');
+
+    return result.map((json) => Dog.fromMap(json)).toList();
+  }
+
+  //d
+  Future<int> update(Dog dog) async {
+    final db = await instance.database;
+    return db.update(
+      'dogs',
+      dog.toMap(),
+      where: 'id = ?',
+      whereArgs: [dog.id],
+    );
+  }
+
+  //e
+  Future<int> delete(int id) async {
+    final db = await instance.database;
+    return await db.delete(
+      'dogs',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
